@@ -15,3 +15,27 @@
   align-items: center;
   box-sizing: content-box;
 }
+
+.header {
+  width: 100%;
+  max-width: 880px;
+  box-sizing: content-box;
+  margin: 0 auto;
+  padding: 45px 10px 0;
+}
+
+.header__section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+}
+
+.header__logo {
+  width: 142px;
+  height: 33px;
+  margin-bottom: 41px;
+}
+
+.header__line {
+  border: 1px solid #545454;
+}
