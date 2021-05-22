@@ -171,3 +171,23 @@
   border: none;
 }
 
+.footer {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: content-box;
+}
+
+.footer__section {
+  margin: 0 auto 60px;
+}
+
+.footer__title {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.2;
+  color: #545454;
+  margin: 0 auto;
+}
