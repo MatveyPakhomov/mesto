@@ -16,4 +16,4 @@
 3. Расширить функционал сайта за счет добавления карточек по клику на кнопку .add-button
 4. Настроить активную фазу кнопок .like
 
-### Проект на GitHub - https://matwick1.github.io/
+### Проект на GitHub - https://matwick1.github.io/mesto/index.html
