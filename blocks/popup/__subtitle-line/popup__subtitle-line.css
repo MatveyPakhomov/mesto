@@ -1,0 +1,15 @@
+.popup__subtitle-line {
+  border-bottom: 1px solid black;
+  opacity: 0.2;
+  margin-bottom: 20px;
+}
+
+.popup__subtitle-line:last-of-type {
+  margin-bottom: 48px;
+}
+
+@media screen and (max-width: 619px) {
+  .popup__subtitle-line:last-of-type {
+    margin-bottom: 45px;
+  }
+}
