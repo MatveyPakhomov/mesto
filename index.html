@@ -12,18 +12,18 @@
   <div class="page">
     <header class="header">
       <section class="header__section">
-        <img src="./images/logo.svg" alt="Логотип: Место - Россия" class="header__logo">
+        <img src="./images/header-logo.svg" alt="Логотип: Место - Россия" class="header__logo">
         <div class="header__line"></div>
       </section>
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__section">
-            <img src="./images/Avatar.png" alt="Картинка: портрет - Жак-Ив Кусто" class="profile__avatar">
+            <img src="./images/profile-Avatar.png" alt="Картинка: портрет - Жак-Ив Кусто" class="profile__avatar">
             <span class="profile__info">
-              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <h1 id="profile_name" class="profile__title">Жак-Ив Кусто</h1>
               <button type="button "class="profile__edit-button"></button>
-              <p class="profile__subtitle">Исследователь океана</p>
+              <p id="profile_job" class="profile__subtitle">Исследователь океана</p>
             </span>
           <button type="button" class="profile__add-button"></button>
         </div>
@@ -31,42 +31,42 @@
       <section class="elements">
         <ul class="elements__list">
           <li class="element">
-            <img class="element__image" src="./images/Karachaevsk.png" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
+            <img class="element__image" src="./images/element-Karachaevsk.png" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
             <div class="element__section">
               <h2 class="element__title">Карачаевск</h2>
               <button class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/Elbrus.png" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
+            <img class="element__image" src="./images/element-Elbrus.png" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
             <div class="element__section">
               <h2 class="element__title">Гора Эльбрус</h2>
               <button class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/Dombai.png" alt="Картинка: лес на фоне Домбай горы">
+            <img class="element__image" src="./images/element-Dombai.png" alt="Картинка: лес на фоне Домбай горы">
             <div class="element__section">
               <h2 class="element__title">Домбай</h2>
               <button class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/Elbrus.png" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
+            <img class="element__image" src="./images/element-Elbrus.png" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
             <div class="element__section">
               <h2 class="element__title">Гора Эльбрус</h2>
               <button class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/Dombai.png" alt="Картинка: лес на фоне Домбай горы">
+            <img class="element__image" src="./images/element-Dombai.png" alt="Картинка: лес на фоне Домбай горы">
             <div class="element__section">
               <h2 class="element__title">Домбай</h2>
               <button class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/Karachaevsk.png" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
+            <img class="element__image" src="./images/element-Karachaevsk.png" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
             <div class="element__section">
               <h2 class="element__title">Карачаево-Черкесия</h2>
               <button class="element__like-button"></button>
@@ -80,7 +80,18 @@
         <h2 class="footer__title">&copy; 2020 Mesto Russia</h2>
       </div>
     </footer>
-  <script src="script.js"></script>
+    <form action="index.html" method="POST" class="popup">
+      <fieldset class="popup__container">
+        <button type="button" class="popup__close-button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" name="name" id="name" value="Жак-Ив Кусто" class="popup__subtitle">
+        <div class="popup__subtitle-line"></div>
+        <input type="text" name="job" id="job" value="Исследователь океана" class="popup__subtitle">
+        <div class="popup__subtitle-line"></div>
+        <button type="submit" class="popup__save-button">Сохранить</button>
+      </fieldset>
+    </form>
+    <script src="./scripts/index.js"></script>
   </div>
 </body>
 </html>
