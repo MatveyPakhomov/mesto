@@ -6,10 +6,11 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .element__like-button:hover {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .element__like-button:active {

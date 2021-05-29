@@ -1,7 +1,8 @@
 .header__section {
   display: flex;
   flex-direction: column;
-  margin-bottom: 37px;
+  margin-bottom: 38px;
+  border-bottom: 2px solid #545454B2;
 }
 
 @media screen and (max-width: 619px) {

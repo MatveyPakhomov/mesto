@@ -1,41 +1,36 @@
+let profile = document.querySelector('.profile');
+let editButton = profile.querySelector('.profile__edit-button');
+let profileName = profile.querySelector('.profile__title');
+let profileJob = profile.querySelector('.profile__subtitle');
 let popup =  document.querySelector('.popup');
-let editButton = document.querySelector('.profile__edit-button');
-let closeButton = document.querySelector('.popup__close-button');
-let submitButton = document.querySelector('.popup__save-button');
+let closeButton = popup.querySelector('.popup__close-button');
+let nameInput = popup.querySelector('.popup__profile-name');
+let jobInput = popup.querySelector('.popup__profile-job');
+let formElement = popup.querySelector('.popup__form');
 
 function toggleClass() {
   popup.classList.toggle('popup_opened');
-}
-
-editButton.addEventListener('click', toggleClass);
-
-submitButton.addEventListener('click', toggleClass);
-
-closeButton.addEventListener('click', function () {
-  popup.classList.toggle('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-})
+}
 
-popup.addEventListener('click', function(event) {
-  if (event.target === event.currentTarget) {
-    toggleClass(event);
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-  }
-})
-
-let formElement = document.querySelector('.popup');
-let nameInput = formElement.querySelector('#name');
-let jobInput = formElement.querySelector('#job');
-let profile = document.querySelector('.profile');
-let profileName = profile.querySelector('#profile_name');
-let profileJob = profile.querySelector('#profile_job');
+// popup.addEventListener('click', function(event) {
+//   if (event.target === event.currentTarget) {
+//     toggleClass(event);
+//     nameInput.value = profileName.textContent;
+//     jobInput.value = profileJob.textContent;
+//   }
+// })
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
+  toggleClass();
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
+
+editButton.addEventListener('click', toggleClass);
+
+closeButton.addEventListener('click', toggleClass);
