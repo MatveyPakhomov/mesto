@@ -9,10 +9,10 @@
 
 @media screen and (max-width: 619px) {
   .profile__info {
-  max-width: 282px;
-  min-width: 0;
-  margin: 0 auto;
-  display: flex;
-  align-items: baseline;
+    max-width: 282px;
+    min-width: 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
   }
 }

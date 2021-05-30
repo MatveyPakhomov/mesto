@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <title>Место</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
+
 <body>
   <div class="page">
     <header class="header">
@@ -17,54 +19,54 @@
     <main class="content">
       <section class="profile">
         <div class="profile__section">
-            <img src="./images/profile-Avatar.png" alt="Картинка: портрет - Жак-Ив Кусто" class="profile__avatar">
-            <div class="profile__info">
-              <h1 class="profile__title">Жак-Ив Кусто</h1>
-              <button type="button" aria-label="Кнопка: редактировать" class="profile__edit-button"></button>
-              <p class="profile__subtitle">Исследователь океана</p>
-            </div>
+          <img src="./images/profile-Avatar.jpg" alt="Картинка: портрет - Жак-Ив Кусто" class="profile__avatar">
+          <div class="profile__info">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button type="button" aria-label="Кнопка: редактировать" class="profile__edit-button"></button>
+            <p class="profile__subtitle">Исследователь океана</p>
+          </div>
           <button type="button" aria-label="Кнопка: добавить" class="profile__add-button"></button>
         </div>
       </section>
       <section class="elements">
         <ul class="elements__list">
           <li class="element">
-            <img class="element__image" src="https://images.pexels.com/photos/4936370/pexels-photo-4936370.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
+            <img class="element__image" src="./images/element-Karachaevsk.jpg" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
             <div class="element__section">
               <h2 class="element__title">Карачаевск</h2>
               <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/element-Elbrus.png" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
+            <img class="element__image" src="./images/element-Elbrus.jpg" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
             <div class="element__section">
               <h2 class="element__title">Гора Эльбрус</h2>
               <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/element-Dombai.png" alt="Картинка: лес на фоне Домбай горы">
+            <img class="element__image" src="./images/element-Dombai.jpg" alt="Картинка: лес на фоне Домбай горы">
             <div class="element__section">
               <h2 class="element__title">Домбай</h2>
               <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/element-Elbrus.png" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
+            <img class="element__image" src="./images/element-Elbrus.jpg" alt="Картинка: закатный горизонт на фоне горы Эльбрус">
             <div class="element__section">
               <h2 class="element__title">Гора Эльбрус</h2>
               <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/element-Dombai.png" alt="Картинка: лес на фоне Домбай горы">
+            <img class="element__image" src="./images/element-Dombai.jpg" alt="Картинка: лес на фоне Домбай горы">
             <div class="element__section">
               <h2 class="element__title">Домбай</h2>
               <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
             </div>
           </li>
           <li class="element">
-            <img class="element__image" src="./images/element-Karachaevsk.png" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
+            <img class="element__image" src="./images/element-Karachaevsk.jpg" alt="Картинка: историческая постройка на фоне гор в Карачаевске">
             <div class="element__section">
               <h2 class="element__title">Карачаево-Черкесия</h2>
               <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
@@ -80,9 +82,9 @@
       <div class="popup__container">
         <button type="button" aria-label="Кнопка: закрыть" class="popup__close-button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="index.html" method="POST" class="popup__form">
-          <input type="text" name="name" value="" class="popup__profile-name">
-          <input type="text" name="job" value="" class="popup__profile-job">
+        <form action="index.html" method="POST" name="form" class="popup__form">
+          <input type="text" name="name" value="" class="popup__profile popup_profile-name">
+          <input type="text" name="job" value="" class="popup__profile popup_profile-job">
           <button type="submit" class="popup__save-button">Сохранить</button>
         </form>
       </div>
@@ -90,4 +92,5 @@
     <script src="./scripts/index.js"></script>
   </div>
 </body>
+
 </html>
