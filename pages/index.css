@@ -1,18 +1,35 @@
+/* стили вендоров */
+
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts.css);
+
+/* стили для .page */
+
 @import url(../blocks/page/page.css);
+@import url(../blocks/page/__header/page__header.css);
+
+/* стили для .header */
+
 @import url(../blocks/header/header.css);
-@import url(../blocks/header/__section/header__section.css);
 @import url(../blocks/header/__logo/header__logo.css);
+
+/* стили для .content */
+
 @import url(../blocks/content/content.css);
+@import url(../blocks/content/__profile/content__profile.css);
+
+/* стили для .profile */
+
 @import url(../blocks/profile/profile.css);
-@import url(../blocks/profile/__section/profile__section.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+
+/* стили для .elements */
+
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__list/elements__list.css);
 @import url(../blocks/element/element.css);
@@ -20,8 +37,14 @@
 @import url(../blocks/element/__section/element__section.css);
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__like-button/element__like-button.css);
+
+/* стили для .footer */
+
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__title/footer__title.css);
+
+/* стили для .popup */
+
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);

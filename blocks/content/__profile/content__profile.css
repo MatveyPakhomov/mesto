@@ -1,18 +1,19 @@
-.profile__section {
+.content__profile {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 51px;
+  margin: 0 auto 51px;
+  padding: 0;
 }
 
 @media screen and (max-width: 918px) {
-  .profile__section {
+  .content__profile {
     padding: 0 29px;
   }
 }
 
 @media screen and (max-width: 619px) {
-  .profile__section {
+  .content__profile {
     flex-direction: column;
     padding: 0 19px;
     margin-bottom: 37px;
