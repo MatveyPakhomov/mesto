@@ -36,7 +36,7 @@
       <div class="popup__container">
         <button type="button" aria-label="Кнопка: закрыть" class="popup__close-button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="form" class="popup__form">
+        <form name="form-edit" class="popup__form">
           <input type="text" name="popup_input_title" value="" class="popup__input popup__input_value_name">
           <input type="text" name="popup_input_subtitle" value="" class="popup__input popup__input_value_job">
           <button type="submit" class="popup__submit-button">Сохранить</button>
@@ -47,7 +47,7 @@
       <div class="popup__container">
         <button type="button" aria-label="Кнопка: закрыть" class="popup__close-button"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form name="form" class="popup__form">
+        <form name="form-create" class="popup__form">
           <input type="text" name="popup_input_title" value="" placeholder="Название" class="popup__input popup__input_value_place">
           <input type="text" name="popup_input_subtitle" value="" placeholder="Ссылка на картинку" class="popup__input popup__input_value_link">
           <button type="submit" class="popup__submit-button">Создать</button>
@@ -57,13 +57,13 @@
     <div class="popup popup_type_view">
       <figure class="popup__section">
         <button type="button" aria-label="Кнопка: закрыть" class="popup__close-button popup__close-button_view"></button>
-        <img class="popup__image" src="lorem" alt="ipsum">
+        <img class="popup__image" src="#" alt="#">
         <figcaption class="popup__caption"></figcaption>
       </figure>
     </div>
-    <template class="item_template">
+    <template class="template-elements">
       <li class="element">
-        <img class="element__image" src="lorem" alt="ipsum">
+        <img class="element__image" src="#" alt="#">
         <div class="element__section">
           <h2 class="element__title"></h2>
           <button type="button" aria-label="Кнопка: удалить карточку" class="element__garbage-button"></button>
@@ -71,6 +71,7 @@
         </div>
       </li>
     </template>
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </div>
 </body>

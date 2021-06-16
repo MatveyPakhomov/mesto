@@ -1,32 +1,5 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const list = document.querySelector('.elements__list');
-const itemTemplate = document.querySelector('.item_template').content;
+const itemTemplate = document.querySelector('.template-elements').content;
 
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-button');
@@ -43,7 +16,6 @@ const popupView = document.querySelector('.popup_type_view');
 const closeBtnEdit = popupEdit.querySelector('.popup__close-button');
 const closeBtnCreate = popupCreate.querySelector('.popup__close-button');
 const closeBtnView = popupView.querySelector('.popup__close-button');
-const submitButton = popupCreate.querySelector('.popup__submit-button');
 const popupViewImage = popupView.querySelector('.popup__image');
 
 //popups inputs
@@ -52,19 +24,35 @@ const jobInput = popupEdit.querySelector('.popup__input_value_job');
 const placeInput = popupCreate.querySelector('.popup__input_value_place');
 const linkInput = popupCreate.querySelector('.popup__input_value_link');
 
+//значения инпутов
+const formItemName = placeInput.value;
+const formItemLink = linkInput.value;
+
+//объект со значениями инпутов
+const itemData = {
+  name: formItemName,
+  link: formItemLink
+}
+
 //popupView caption
 const popupViewCaption = popupView.querySelector('.popup__caption');
 
-initialCards.forEach(function (el) {
+function renderCards(itemData) {
   const htmlElement = itemTemplate.querySelector('.element').cloneNode(true);
+  const elementTitle = htmlElement.querySelector('.element__title');
+  const elementImage = htmlElement.querySelector('.element__image');
 
-  htmlElement.querySelector('.element__title').textContent = el.name;
-  htmlElement.querySelector('.element__image').src = el.link;
-  htmlElement.querySelector('.element__image').alt = `Картинка: ${el.name}`;
+  elementTitle.textContent = itemData.name;
+  elementImage.src = itemData.link;
+  elementImage.alt = `Картинка: ${itemData.link}`;
 
-  list.append(htmlElement);
+  list.prepend(htmlElement);
   setEventListeners(htmlElement);
-})
+}
+
+initialCards.forEach(function(el) {
+  renderCards(el);
+});
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -72,6 +60,15 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+}
+
+function createCard(evt) {
+  evt.preventDefault();
+  itemData.name = placeInput.value;
+  itemData.link = linkInput.value;
+  renderCards(itemData);
+  resetPopupFields();
+  closePopup(popupCreate);
 }
 
 function resetPopupFields() {
@@ -90,21 +87,6 @@ function submitEditForm(evt) {
   profileJob.textContent = jobInput.value;
   resetPopupFields();
   closePopup(popupEdit);
-}
-
-function renderCard(evt) {
-  evt.preventDefault();
-
-  const htmlElement = itemTemplate.querySelector('.element').cloneNode(true);
-
-  htmlElement.querySelector('.element__title').textContent = placeInput.value;
-  htmlElement.querySelector('.element__image').src = linkInput.value;
-  htmlElement.querySelector('.element__image').alt = `Картинка: ${placeInput.value}`;
-
-  list.prepend(htmlElement);
-  resetPopupFields();
-  setEventListeners(htmlElement);
-  closePopup(popupCreate);
 }
 
 function handleDelete(el) {
@@ -138,7 +120,7 @@ addButton.addEventListener('click', function() {
 
 popupEdit.addEventListener('submit', submitEditForm);
 
-popupCreate.addEventListener('submit', renderCard);
+popupCreate.addEventListener('submit', createCard);
 
 closeBtnEdit.addEventListener('click', function() {
   closePopup(popupEdit);
