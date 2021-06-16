@@ -37,7 +37,7 @@ const itemData = {
 //popupView caption
 const popupViewCaption = popupView.querySelector('.popup__caption');
 
-function renderCards(itemData) {
+function getCards(itemData) {
   const htmlElement = itemTemplate.querySelector('.element').cloneNode(true);
   const elementTitle = htmlElement.querySelector('.element__title');
   const elementImage = htmlElement.querySelector('.element__image');
@@ -46,8 +46,13 @@ function renderCards(itemData) {
   elementImage.src = itemData.link;
   elementImage.alt = `Картинка: ${itemData.link}`;
 
-  list.prepend(htmlElement);
   setEventListeners(htmlElement);
+
+  return htmlElement;
+}
+
+function renderCards(itemData) {
+  list.prepend(getCards(itemData));
 }
 
 initialCards.forEach(function(el) {
