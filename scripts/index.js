@@ -46,7 +46,7 @@ function getCards(itemData) {
   elementImage.src = itemData.link;
   elementImage.alt = `Картинка: ${itemData.link}`;
 
-  setEventListeners(htmlElement);
+  setListeners(htmlElement);
 
   return htmlElement;
 }
@@ -55,20 +55,38 @@ function renderCards(itemData) {
   list.prepend(getCards(itemData));
 }
 
-initialCards.forEach(function(el) {
+initialCards.forEach((el) => {
   renderCards(el);
 });
 
+handleEsc = (evt) => {
+  const activePopup = document.querySelector('.popup_opened');
+
+  if (evt.key === 'Escape') {
+    activePopup.classList.remove('popup_opened');
+    document.removeEventListener('keyup', handleEsc);  }
+}
+
+overlayClose = (evt) => {
+  const activePopup = document.querySelector('.popup_opened');
+
+  if (evt.target.classList.contains('popup')) {
+    activePopup.classList.remove('popup_opened');
+    document.removeEventListener('keyup', handleEsc);
+  }
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', handleEsc);
+  popup.addEventListener('click', overlayClose);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function createCard(evt) {
-  evt.preventDefault();
+function createCard() {
   itemData.name = placeInput.value;
   itemData.link = linkInput.value;
   renderCards(itemData);
@@ -77,8 +95,6 @@ function createCard(evt) {
 }
 
 function resetPopupFields() {
-  nameInput.value = '';
-  jobInput.value = '';
   placeInput.value = '';
   linkInput.value = '';
   popupViewImage.src = '';
@@ -86,11 +102,9 @@ function resetPopupFields() {
   popupViewCaption.textContent = '';
 }
 
-function submitEditForm(evt) {
-  evt.preventDefault();
+function submitEditForm() {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  resetPopupFields();
   closePopup(popupEdit);
 }
 
@@ -102,7 +116,7 @@ function toggleClass(el) {
   el.target.closest('.element__like-button').classList.toggle('element__like-button_active');
 }
 
-function setEventListeners(el) {
+function setListeners(el) {
   el.querySelector('.element__garbage-button').addEventListener('click', handleDelete);
   el.querySelector('.element__like-button').addEventListener('click', toggleClass);
   el.querySelector('.element__image').addEventListener('click', function() {
@@ -113,31 +127,31 @@ function setEventListeners(el) {
   });
 }
 
-editButton.addEventListener('click', function() {
+editButton.addEventListener('click', () => {
+  setInputsValue();
   openPopup(popupEdit);
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
 });
 
-addButton.addEventListener('click', function() {
+function setInputsValue () {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+}
+
+addButton.addEventListener('click', () => {
   openPopup(popupCreate);
 });
 
-popupEdit.addEventListener('submit', submitEditForm);
-
-popupCreate.addEventListener('submit', createCard);
-
-closeBtnEdit.addEventListener('click', function() {
+closeBtnEdit.addEventListener('click', () => {
   closePopup(popupEdit);
-  resetPopupFields();
 });
 
-closeBtnCreate.addEventListener('click', function() {
+closeBtnCreate.addEventListener('click', () => {
   closePopup(popupCreate);
   resetPopupFields();
 });
 
-closeBtnView.addEventListener('click', function() {
+closeBtnView.addEventListener('click', () => {
   closePopup(popupView);
   resetPopupFields();
 });
+
