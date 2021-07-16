@@ -1,10 +1,6 @@
 // Вынесем все необходимые элементы формы в константы
 const formElement = document.querySelector('.popup__form');
 const inputElement = formElement.querySelector('.popup__input');
-const formInput = formElement.querySelector('.popup__input');
-
-// Выбираем элемент ошибки на основе уникального класса
-const formError = formElement.querySelector(`.${formInput.id}-error`);
 
 // Функция, которая проверяет валидность поля
 // Функция isValid теперь принимает formElement и inputElement,
@@ -41,13 +37,11 @@ const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
     buttonElement.classList.add('popup__submit-button_inactive');
-    popupEdit.removeEventListener('submit', submitEditForm);
-    popupCreate.removeEventListener('submit', createCard);
+    buttonElement.setAttribute('disabled', 'disabled');
   } else {
     // иначе сделай кнопку активной
     buttonElement.classList.remove('popup__submit-button_inactive');
-    popupEdit.addEventListener('submit', submitEditForm);
-    popupCreate.addEventListener('submit', createCard);
+    buttonElement.removeAttribute('disabled');
   }
 };
 
@@ -62,6 +56,19 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   errorElement.textContent = errorMessage;
   errorElement.classList.add('popup__input-error_active');
 };
+
+// const clearErrors = (formElement) => {
+//   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+//   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+//   // console.log(inputList);
+//   inputList.forEach((inputElement) => {
+//     if (inputElement.classList.contains('popup__input_type_error') || (errorElement.classList.contains('popup__input-error_active'))) {
+//       inputElement.classList.remove('popup__input_type_error');
+//       errorElement.classList.remove('popup__input-error_active');
+//       errorElement.textContent = '';
+//     }
+//   });
+// }
 
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElement, inputElement) => {
@@ -117,4 +124,11 @@ const enableValidation = () => {
   });
 };
 
-enableValidation();
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
