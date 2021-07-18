@@ -17,8 +17,8 @@ const closeBtnEdit = popupEdit.querySelector('.popup__close-button');
 const closeBtnCreate = popupCreate.querySelector('.popup__close-button');
 const closeBtnView = popupView.querySelector('.popup__close-button');
 const popupViewImage = popupView.querySelector('.popup__image');
-const buttonElement = popupCreate.querySelector('.popup__submit-button');
 
+const buttonElement = popupCreate.querySelector('.popup__submit-button');
 
 //popups inputs
 const nameInput = popupEdit.querySelector('.popup__input_value_name');
@@ -27,7 +27,6 @@ const placeInput = popupCreate.querySelector('.popup__input_value_place');
 const linkInput = popupCreate.querySelector('.popup__input_value_link');
 
 const formCreate = popupCreate.querySelector('.form-create');
-
 
 //объект со значениями инпутов
 const itemData = {
@@ -65,6 +64,7 @@ const handleEsc = (evt) => {
 
   if (evt.key === 'Escape') {
     closePopup(activePopup);
+    disableSubmitButton(formCreate);
   }
 }
 
@@ -73,6 +73,7 @@ const overlayClose = (evt) => {
 
   if (evt.target.classList.contains('popup')) {
     closePopup(activePopup);
+    disableSubmitButton(formCreate);
   }
 }
 
@@ -86,8 +87,10 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', handleEsc);
   popup.removeEventListener('click', overlayClose);
-  buttonElement.classList.add('popup__submit-button_inactive');
-  buttonElement.setAttribute('disabled', 'disabled');
+  // дизейбл кнопки пытался тут реализовать чтобы убрать уязвимость создания
+  // пустой карточки после того как заполняешь инпуты и закрываешь форму вместо
+  // "отправки" при следующем открытии поля очищены а кнопка работает.
+  // поэтому вместо хэндлере для сабмита я распихал функцию дизейбла по закрытиям попапа
 }
 
 function createCard() {
@@ -152,6 +155,7 @@ closeBtnEdit.addEventListener('click', () => {
 
 closeBtnCreate.addEventListener('click', () => {
   closePopup(popupCreate);
+  disableSubmitButton(formCreate);
 });
 
 closeBtnView.addEventListener('click', () => {

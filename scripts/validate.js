@@ -41,6 +41,12 @@ const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) 
   errorElement.textContent = '';
 };
 
+const disableSubmitButton = (form) => {
+  const buttonElement = form.querySelector('.popup__submit-button');
+  buttonElement.classList.add('popup__submit-button_inactive');
+  buttonElement.setAttribute('disabled', 'disabled');
+}
+
 // const clearErrors = (formElement) => {
 //   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
 //   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
