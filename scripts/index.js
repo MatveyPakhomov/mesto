@@ -17,12 +17,17 @@ const closeBtnEdit = popupEdit.querySelector('.popup__close-button');
 const closeBtnCreate = popupCreate.querySelector('.popup__close-button');
 const closeBtnView = popupView.querySelector('.popup__close-button');
 const popupViewImage = popupView.querySelector('.popup__image');
+const buttonElement = popupCreate.querySelector('.popup__submit-button');
+
 
 //popups inputs
 const nameInput = popupEdit.querySelector('.popup__input_value_name');
 const jobInput = popupEdit.querySelector('.popup__input_value_job');
 const placeInput = popupCreate.querySelector('.popup__input_value_place');
 const linkInput = popupCreate.querySelector('.popup__input_value_link');
+
+const formCreate = popupCreate.querySelector('.form-create');
+
 
 //объект со значениями инпутов
 const itemData = {
@@ -55,7 +60,7 @@ initialCards.forEach((el) => {
   renderCards(el);
 });
 
-handleEsc = (evt) => {
+const handleEsc = (evt) => {
   const activePopup = document.querySelector('.popup_opened');
 
   if (evt.key === 'Escape') {
@@ -63,7 +68,7 @@ handleEsc = (evt) => {
   }
 }
 
-overlayClose = (evt) => {
+const overlayClose = (evt) => {
   const activePopup = document.querySelector('.popup_opened');
 
   if (evt.target.classList.contains('popup')) {
@@ -75,14 +80,14 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', handleEsc);
   popup.addEventListener('click', overlayClose);
-  // clearErrors(formElement);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', handleEsc);
   popup.removeEventListener('click', overlayClose);
-  resetAddCardPopup();
+  buttonElement.classList.add('popup__submit-button_inactive');
+  buttonElement.setAttribute('disabled', 'disabled');
 }
 
 function createCard() {
@@ -91,10 +96,11 @@ function createCard() {
   renderCards(itemData);
   resetAddCardPopup();
   closePopup(popupCreate);
+  buttonElement.classList.add('popup__submit-button_inactive');
+  buttonElement.setAttribute('disabled', 'disabled');
 }
 
 function resetAddCardPopup() {
-  const formCreate = popupCreate.querySelector('.form-create');
   formCreate.reset();
 }
 
@@ -125,7 +131,6 @@ function setListeners(el) {
 
 editButton.addEventListener('click', () => {
   setInputsValue();
-  enableValidation();
   openPopup(popupEdit);
 });
 
@@ -134,8 +139,10 @@ function setInputsValue () {
   jobInput.value = profileJob.textContent;
 }
 
+setInputsValue();
+
 addButton.addEventListener('click', () => {
-  enableValidation();
+  resetAddCardPopup(popupCreate);
   openPopup(popupCreate);
 });
 
