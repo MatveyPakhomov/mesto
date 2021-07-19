@@ -64,7 +64,6 @@ const handleEsc = (evt) => {
 
   if (evt.key === 'Escape') {
     closePopup(activePopup);
-    disableSubmitButton(formCreate);
   }
 }
 
@@ -73,7 +72,6 @@ const overlayClose = (evt) => {
 
   if (evt.target.classList.contains('popup')) {
     closePopup(activePopup);
-    disableSubmitButton(formCreate);
   }
 }
 
@@ -87,10 +85,6 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', handleEsc);
   popup.removeEventListener('click', overlayClose);
-  // дизейбл кнопки пытался тут реализовать чтобы убрать уязвимость создания
-  // пустой карточки после того как заполняешь инпуты и закрываешь форму вместо
-  // "отправки" при следующем открытии поля очищены а кнопка работает.
-  // поэтому вместо хэндлере для сабмита я распихал функцию дизейбла по закрытиям попапа
 }
 
 function createCard() {
@@ -99,8 +93,7 @@ function createCard() {
   renderCards(itemData);
   resetAddCardPopup();
   closePopup(popupCreate);
-  buttonElement.classList.add('popup__submit-button_inactive');
-  buttonElement.setAttribute('disabled', 'disabled');
+  disableSubmitButton(formCreate);
 }
 
 function resetAddCardPopup() {
@@ -117,13 +110,13 @@ function handleDelete(el) {
   el.target.closest('.element').remove();
 };
 
-function toggleClass(el) {
+function toggleLike(el) {
   el.target.closest('.element__like-button').classList.toggle('element__like-button_active');
 }
 
 function setListeners(el) {
   el.querySelector('.element__garbage-button').addEventListener('click', handleDelete);
-  el.querySelector('.element__like-button').addEventListener('click', toggleClass);
+  el.querySelector('.element__like-button').addEventListener('click', toggleLike);
   el.querySelector('.element__image').addEventListener('click', function() {
     openPopup(popupView);
     popupViewImage.src = el.querySelector('.element__image').src;
@@ -155,7 +148,6 @@ closeBtnEdit.addEventListener('click', () => {
 
 closeBtnCreate.addEventListener('click', () => {
   closePopup(popupCreate);
-  disableSubmitButton(formCreate);
 });
 
 closeBtnView.addEventListener('click', () => {
