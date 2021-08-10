@@ -121,8 +121,10 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keyup', handleEsc);
-  popup.removeEventListener('click', overlayClose);
+  popup.removeEventListener('mousedown', overlayClose);
 }
+//самому смекалочки не хватило)
+//благодарю за исчерпыващие комментарии! приятно иметь дело =)
 
 function createCard() {
   itemData.name = placeInput.value;
