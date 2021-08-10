@@ -1,4 +1,4 @@
-import { openPopup, popupView } from './index.js'
+import { openPopup, popupView, popupViewImage, popupViewCaption } from './index.js'
 
 export class Card {
   constructor(data, template) {
@@ -12,21 +12,26 @@ export class Card {
     return templateElement;
   }
 
+  _handleDeleteCard = (evt) => {
+    evt.target.closest('.element').remove();
+  }
+
+  _handleLikeCard = () => {
+    this._cardLikeBtn.classList.toggle('element__like-button_active');
+  }
+  _handlePreviewPicture = () => {
+    this._popupViewImage = popupViewImage;
+    this._popupViewCaption = popupViewCaption;
+    openPopup(popupView);
+    this._popupViewImage.src = this._cardViewBtn.src;
+    this._popupViewCaption.textContent = this._name;
+    this._popupViewImage.alt = `Картинка: ${this._name}`;
+  }
+
   _setEventListeners = () => {
-    this._cardDeleteBtn.addEventListener('click', function(evt) {
-      evt.target.closest('.element').remove();
-    });
-    this._cardLikeBtn.addEventListener('click', () => {
-      this._cardLikeBtn.classList.toggle('element__like-button_active');
-    });
-    this._cardViewBtn.addEventListener('click', () => {
-      this._popupViewImage = document.querySelector('.popup__image');
-      this._popupViewCaption = document.querySelector('.popup__caption');
-      openPopup(popupView);
-      this._popupViewImage.src = this._cardViewBtn.src;
-      this._popupViewCaption.textContent = this._name;
-      this._popupViewImage.alt = `Картинка: ${this._name}`;
-    });
+    this._cardDeleteBtn.addEventListener('click', this._handleDeleteCard);
+    this._cardLikeBtn.addEventListener('click', this._handleLikeCard);
+    this._cardViewBtn.addEventListener('click', this._handlePreviewPicture);
   }
 
   getCard = () => {
