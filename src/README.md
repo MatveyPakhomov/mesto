@@ -14,4 +14,4 @@
 3. Подключить сервер
 4. Сделать счетчик лайков
 
-### Проект на GitHub - https://matwick1.github.io/mesto/index.html
+### Проект на GitHub - https://matwick1.github.io/mesto/index.html (ссылка не работает, необходимо осуществить сборку через вебпак командой 'npm run build')
