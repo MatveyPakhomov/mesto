@@ -1,4 +1,4 @@
-export class FormValidator {
+export default class FormValidator {
   constructor(validationConfig, formElement) {
     this._formSelector = validationConfig.formSelector;
     this._inputSelector = validationConfig.inputSelector;
@@ -11,7 +11,7 @@ export class FormValidator {
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
   }
 
-  _checkInputValidity = (inputElement) => {
+  _checkInputValidity(inputElement) {
     const isInputNotValid = !inputElement.validity.valid;
     const errorMessage = inputElement.validationMessage;
 
@@ -22,7 +22,7 @@ export class FormValidator {
     }
   }
 
-  _showInputError = (inputElement, errorMessage) => {
+  _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
 
     inputElement.classList.add(this._inputErrorClass);
@@ -30,7 +30,7 @@ export class FormValidator {
     errorElement.classList.add(this._errorClass);
   };
 
-  _hideInputError = (inputElement) => {
+  _hideInputError(inputElement) {
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
 
     inputElement.classList.remove(this._inputErrorClass);
@@ -38,7 +38,7 @@ export class FormValidator {
     errorElement.textContent = '';
   };
 
-  _toggleButtonState = () => {
+  _toggleButtonState() {
     const hasInvalidInput = this._inputList.some(inputElement => !inputElement.validity.valid);
 
     if (hasInvalidInput) {
@@ -50,7 +50,7 @@ export class FormValidator {
     }
   };
 
-  _setEventListeners = () => {
+  _setEventListeners() {
     this._toggleButtonState();
 
     this._formElement.addEventListener('submit', (evt) => evt.preventDefault());
