@@ -13,12 +13,12 @@ export default class UserInfo {
     return this._profileData;
   }
 
-  setUserInfo = (item) => {
-    if (item.popup_input_title) {
-      this._userName.textContent = item.popup_input_title;
+  setUserInfo = (data) => {
+    if (data.name) {
+      this._userName.textContent = data.name;
     }
-    if (item.popup_input_subtitle) {
-      this._userJob.textContent = item.popup_input_subtitle;
+    if (data.link) {
+      this._userJob.textContent = data.link;
     }
   }
 }
