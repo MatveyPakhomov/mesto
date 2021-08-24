@@ -9,9 +9,9 @@ export default class Popup {
     this._setEventListeners();
   }
 
-  close = () => {
-    this._removeEventListeners();
+  close() {
     this._popup.classList.remove('popup_opened');
+    this._removeEventListeners();
   }
 
   _handleEscClose = (evt) => {
@@ -27,13 +27,14 @@ export default class Popup {
   }
 
   _setEventListeners() {
-    this._popupCloseButton.addEventListener('click', this.close);
+    this._closeMethod = this.close.bind(this);
+    this._popupCloseButton.addEventListener('click', this._closeMethod);
     document.addEventListener('keyup', this._handleEscClose);
     this._popup.addEventListener('mousedown', this._handleOverlayClose);
   }
 
   _removeEventListeners() {
-    this._popupCloseButton.removeEventListener('click', this.close);
+    this._popupCloseButton.removeEventListener('click', this._closeMethod);
     document.removeEventListener('keyup', this._handleEscClose);
     this._popup.removeEventListener('mousedown', this._handleOverlayClose);
   }
