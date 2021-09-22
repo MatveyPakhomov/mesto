@@ -15,7 +15,9 @@
     </header>
     <main class="content">
       <section class="profile content__profile">
-        <img src="<%=require('./images/profile-Avatar.jpg')%>" alt="Картинка: портрет - Жак-Ив Кусто" class="profile__avatar">
+          <button type="button" aria-label="Кнопка: поменять аватар" class="profile__avatar_edit-button">
+            <img src="<%=require('./images/profile-Avatar.jpg')%>" alt="Картинка: портрет - Жак-Ив Кусто" class="profile__avatar">
+          </button>
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button type="button" aria-label="Кнопка: редактировать" class="profile__edit-button"></button>
@@ -72,13 +74,38 @@
         <figcaption class="popup__caption"></figcaption>
       </figure>
     </div>
+    <div class="popup popup_type_delete">
+      <div class="popup__container popup__container_type_delete">
+        <button type="button" aria-label="Кнопка: закрыть" class="popup__close-button"></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form class="popup__form popup__form_type_delete" novalidate>
+          <button type="submit" class="popup__submit-button">Да</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_update-avatar">
+      <div class="popup__container popup__container_type_update-avatar">
+        <button type="button" aria-label="Кнопка: закрыть" class="popup__close-button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form popup__form_type_update-avatar" novalidate>
+          <section class="popup__section">
+            <input type="url" id="update-avatar" name="avatar" value="" placeholder="Ссылка на картинку" class="popup__input popup__input_value_link" required>
+            <span id="update-avatar-error" class="popup__input-error"></span>
+          </section>
+          <button type="submit" class="popup__submit-button">Сохранить</button>
+        </form>
+      </div>
+    </div>
     <template class="template-elements">
       <li class="element">
         <img class="element__image" src="#" alt="#">
         <div class="element__section">
           <h2 class="element__title"></h2>
           <button type="button" aria-label="Кнопка: удалить карточку" class="element__garbage-button"></button>
-          <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
+          <div class="element__like-section">
+            <button type="button" aria-label="Кнопка: мне нравится" class="element__like-button"></button>
+            <p class="element__like-counter">0</p>
+          </div>
         </div>
       </li>
     </template>
