@@ -17,7 +17,7 @@ const editButton = profile.querySelector('.profile__edit-button');
 const profileName = profile.querySelector('.profile__title');
 const profileJob = profile.querySelector('.profile__subtitle');
 const addButton = profile.querySelector('.profile__add-button');
-const updateButton = profile.querySelector('.profile__avatar_edit-button');
+const updateButton = profile.querySelector('.profile__avatar-edit-button');
 const profileAvatar = profile.querySelector('.profile__avatar');
 
 //popups
