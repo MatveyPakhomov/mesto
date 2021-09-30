@@ -1,13 +1,14 @@
 import Popup from "./Popup.js";
 
-export default class PopupWithForm extends Popup {
+export default class PopupWithDelete extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
   }
 
-  _submit(evt) {
-    evt.target.closest('.element').remove();
+  _submit = (evt) => {
+    evt.preventDefault();
+    this._handleFormSubmit();
   }
 
   _setEventListeners() {
