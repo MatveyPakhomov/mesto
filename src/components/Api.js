@@ -4,30 +4,25 @@ export default class Api {
     this.headers = config.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
+  }
+
   getProfileInfo() {
     return fetch(this.url + '/users/me', {
       headers: this.headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
 
   getInitialCards() {
     return fetch(this.url + '/cards', {
       headers: this.headers
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
 
   editProfile(data) {
@@ -36,13 +31,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(data)
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
 
   addNewCard(data) {
@@ -51,13 +40,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(data)
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
 
   updateAvatar(data) {
@@ -66,28 +49,15 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(data)
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
 
   deleteCard(cardId) {
     return fetch(this.url + `/cards/${cardId}`, {
       method: 'DELETE',
       headers: this.headers,
-      // body: JSON.stringify(data)
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
 
   likeCard(cardId) {
@@ -95,13 +65,7 @@ export default class Api {
       method: 'PUT',
       headers: this.headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
 
   unlikeCard(cardId) {
@@ -109,28 +73,7 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-      })
+      .then(this._checkResponse)
   }
-
-  // getLikesCount(userId) {
-  //   return fetch(this.url + `/cards/likes/${userId}`, {
-  //     headers: this.headers,
-  //   })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //     // если ошибка, отклоняем промис
-  //       return Promise.reject(`Ошибка: ${res.status} ${res.statusText}`);
-  //     })
-  // }
-
-  // другие методы работы с API
 }
 

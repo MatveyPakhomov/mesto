@@ -26,7 +26,6 @@ export default class PopupWithForm extends Popup {
   }
 
   _submit = () => {
-    this.renderLoading(true);
     this._handleFormSubmit(this._getInputValues());
   }
 

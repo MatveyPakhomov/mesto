@@ -17,13 +17,6 @@ export default class Card {
     return templateElement;
   }
 
-//черновик
-  // _setDeleteButton() {
-  //   if(this._userId !== this._ownerId) {
-  //     this._cardDeleteBtn.hidden = true;
-  //   }
-  // }
-
   _delete = () => {
     this._handleDeleteClick(this._cardId, this._card);
   }
@@ -55,7 +48,6 @@ export default class Card {
     this._cardViewBtn.src = this._link;
     this._cardViewBtn.alt = this._name;
     this._setLikeCounter();
-    // this._setDeleteButton();
     this._setEventListeners();
     return this._card;
   }
