@@ -17,14 +17,15 @@ export default class UserInfo {
     if (data.name) {
       this._usernameElement.textContent = data.name;
     }
-    if (data.link) {
-      this._userJobElement.textContent = data.link;
+    if (data.about) {
+      this._userJobElement.textContent = data.about;
     }
-  }
-
-  setUserAvatar(data) {
     if (data.avatar) {
       this._userAvatarElement.src = data.avatar;
     }
+  }
+
+  userId(data) {
+      return data._id
   }
 }

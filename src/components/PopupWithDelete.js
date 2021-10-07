@@ -1,13 +1,14 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithDelete extends Popup {
-  constructor(popupSelector, handleFormSubmit) {
+  constructor(popupSelector) {
     super(popupSelector);
-    this._handleFormSubmit = handleFormSubmit;
+    // this._handleFormSubmit = handleFormSubmit;
+    // this._handleDeleteCard = handleDeleteCard;
+    this._submitButton = this._popup.querySelector('.popup__submit-button');
   }
 
   renderLoading(isLoading) {
-    this._submitButton = this._popup.querySelector('.popup__submit-button');
     if (isLoading) {
       this._submitTextBefore = this._submitButton.textContent;
       this._submitButton.textContent = 'Удаление...';
@@ -16,9 +17,14 @@ export default class PopupWithDelete extends Popup {
     }
   }
 
+  // setNewHandler(handle) {
+  //   this._handleDeleteCard = handle;
+  // }
+
   _submit = (evt) => {
     evt.preventDefault();
-    this._handleFormSubmit();
+    // this._handleFormSubmit();
+    // this.setNewHandler();
   }
 
   _setEventListeners() {

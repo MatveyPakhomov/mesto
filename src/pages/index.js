@@ -5,62 +5,40 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import './index.css'; // добавьте импорт главного файла стилей
 import PopupWithImage from '../components/PopupWithImage.js';
-import { validationConfig } from '../utils/constants.js';
+import {
+  validationConfig,
+  container,
+  itemTemplate,
+  editButton,
+  profileName,
+  profileJob,
+  addButton,
+  updateButton,
+  profileAvatar,
+  nameInput,
+  jobInput,
+  formProfile,
+  formCard,
+  formUpdateAvatar,
+  popupPreview,
+  popupCard,
+  popupProfile,
+  popupDelete,
+  popupAvatar
+} from '../utils/constants.js';
 import Api from '../components/Api.js';
 import PopupWithDelete from '../components/PopupWithDelete.js';
 
-const container = document.querySelector('.elements__list');
-const itemTemplate = document.querySelector('.template-elements');
-
-const profile = document.querySelector('.profile');
-const editButton = profile.querySelector('.profile__edit-button');
-const profileName = profile.querySelector('.profile__title');
-const profileJob = profile.querySelector('.profile__subtitle');
-const addButton = profile.querySelector('.profile__add-button');
-const updateButton = profile.querySelector('.profile__avatar-edit-button');
-const profileAvatar = profile.querySelector('.profile__avatar');
-
-//popups
-const popupEdit = document.querySelector('.popup_type_edit');
-
-//popups input
-const nameInput = popupEdit.querySelector('.popup__input_value_name');
-const jobInput = popupEdit.querySelector('.popup__input_value_job');
-
-//формы для валидации
-const formProfile = document.querySelector('.popup__form_type_edit');
-const formCard = document.querySelector('.popup__form_type_create');
-const formUpdateAvatar = document.querySelector('.popup__form_type_update-avatar');
-
-function createCard(data, ownerId, likeCounter) {
-  const card = new Card (data, itemTemplate, userId, ownerId, likeCounter, { handleCardClick, handleDeleteClick, handleLikeClick });
+function createCard(data) {
+  const card = new Card (data, itemTemplate, userId, { handleCardClick, handleDeleteClick, handleDeleteCard, handleLikeClick });
   return card.getCard();
 }
-
-//селекторы попапов
-const popupPreview = '.popup_type_view';
-const popupCard = '.popup_type_create';
-const popupProfile = '.popup_type_edit';
-const popupDelete = '.popup_type_delete';
-const popupAvatar = '.popup_type_update-avatar';
 
 //карточки с сервера
 const defaultCardList = new Section({
   renderer: (data) => {
-    console.log(data)
-    const ownerId = data.owner._id;
-    const likesId = data.likes;
-    const likeCounter = data.likes.length;
-    const cardElement = createCard(data, ownerId, likeCounter);
-    const cardDeleteButton = cardElement.querySelector('.element__garbage-button');
-    const likeButton = cardElement.querySelector('.element__like-button');
-    if (likesId.find((element) => {return element._id === userId})) {
-      likeButton.classList.add('element__like-button_active')
-    }
+    const cardElement = createCard(data);
     defaultCardList.appendItem(cardElement);
-    if (userId !== ownerId) {
-      cardDeleteButton.hidden = true;
-    }
   }
 }, container);
 
@@ -75,11 +53,8 @@ const popupAddCard = new PopupWithForm(
     })
       .then(res => {
         const newCardElement = createCard(res);
-        const likeCounter = newCardElement.querySelector('.element__like-counter');
-        likeCounter.textContent = res.likes.length;
         defaultCardList.prependItem(newCardElement);
         popupAddCard.close();
-        formCard.reset();
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -89,48 +64,45 @@ const popupAddCard = new PopupWithForm(
 );
 
 //открытие попапа превью
+const popupWithImage = new PopupWithImage(popupPreview);
 const handleCardClick = (name, link) => {
-  const popupWithImage = new PopupWithImage(popupPreview);
   popupWithImage.open(name, link);
 }
 
 //открытие попапа удаления
-function handleDeleteClick(cardId, cardElement) {
-  const popupWithDelete = new PopupWithDelete(
-    popupDelete,
-    () => {
-      popupWithDelete.renderLoading(true);
-      api.deleteCard(cardId)
-        .then(() => {
-          cardElement.remove();
-          popupWithDelete.close();
-        })
-        .catch(err => console.log(err))
-        .finally(() => {
-          popupWithDelete.renderLoading(false);
-        })
-    }
-  );
+const popupWithDelete = new PopupWithDelete(popupDelete);
+function handleDeleteClick() {
   popupWithDelete.open();
+}
+function handleDeleteCard(cardElement, cardId) {
+  popupWithDelete.renderLoading(true);
+  api.deleteCard(cardId)
+    .then(() => {
+      cardElement.remove();
+      popupWithDelete.close();
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      popupWithDelete.renderLoading(false);
+    })
 }
 
 //постановка/снятие лайка
-function handleLikeClick(cardId, cardElement, userId) {
-  const likeButton = cardElement.querySelector('.element__like-button');
-  if (likeButton.classList.contains('element__like-button_active')) {
+function handleLikeClick(cardId, likeCounter, likeButton, thisCard) {
+  if (thisCard.isLiked()) {
     api.unlikeCard(cardId)
       .then(res => {
-        this._cardLikeCounter.textContent = res.likes.length;
+        likeCounter.textContent = res.likes.length;
+        likeButton.classList.remove('element__like-button_active');
       })
       .catch(err => console.log(err));
-    likeButton.classList.remove('element__like-button_active');
   } else {
     api.likeCard(cardId)
       .then(res => {
-        this._cardLikeCounter.textContent = res.likes.length;
+        likeCounter.textContent = res.likes.length;
+        likeButton.classList.add('element__like-button_active');
       })
       .catch(err => console.log(err));
-    likeButton.classList.add('element__like-button_active');
   }
 }
 
@@ -143,9 +115,8 @@ const popupUpdateAvatar = new PopupWithForm(
       avatar: data.avatar
     })
       .then(res => {
-        userInfo.setUserAvatar(res);
+        userInfo.setUserInfo(res);
         popupUpdateAvatar.close();
-        formUpdateAvatar.reset();
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -218,10 +189,8 @@ let userId;
 
 api.getProfileInfo()
   .then(res => {
-    profileName.textContent = res.name;
-    profileJob.textContent = res.about;
-    profileAvatar.src = res.avatar;
-    userId = res._id;
+    userInfo.setUserInfo(res);
+    userId = userInfo.userId(res);
   })
   .then(() => {
     api.getInitialCards()
@@ -230,3 +199,4 @@ api.getProfileInfo()
       })
       .catch(err => console.log(err));
   })
+  .catch(err => console.log(err));
