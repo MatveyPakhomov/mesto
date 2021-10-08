@@ -3,8 +3,6 @@ import Popup from "./Popup.js";
 export default class PopupWithDelete extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
-    // this._handleFormSubmit = handleFormSubmit;
-    // this._handleDeleteCard = handleDeleteCard;
     this._submitButton = this._popup.querySelector('.popup__submit-button');
   }
 
@@ -17,14 +15,13 @@ export default class PopupWithDelete extends Popup {
     }
   }
 
-  // setNewHandler(handle) {
-  //   this._handleDeleteCard = handle;
-  // }
+  setDeleteHandler(handlerDeleteCard) {
+    this._handleDeleteCard = handlerDeleteCard;
+  }
 
   _submit = (evt) => {
     evt.preventDefault();
-    // this._handleFormSubmit();
-    // this.setNewHandler();
+    this._handleDeleteCard();
   }
 
   _setEventListeners() {

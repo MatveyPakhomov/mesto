@@ -30,7 +30,7 @@ import Api from '../components/Api.js';
 import PopupWithDelete from '../components/PopupWithDelete.js';
 
 function createCard(data) {
-  const card = new Card (data, itemTemplate, userId, { handleCardClick, handleDeleteClick, handleDeleteCard, handleLikeClick });
+  const card = new Card (data, itemTemplate, userId, { handleCardClick, handleDeleteClick, handleLikeClick });
   return card.getCard();
 }
 
@@ -55,6 +55,7 @@ const popupAddCard = new PopupWithForm(
         const newCardElement = createCard(res);
         defaultCardList.prependItem(newCardElement);
         popupAddCard.close();
+        formCard.reset();
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -71,36 +72,34 @@ const handleCardClick = (name, link) => {
 
 //открытие попапа удаления
 const popupWithDelete = new PopupWithDelete(popupDelete);
-function handleDeleteClick() {
+function handleDeleteClick(cardElement, cardId) {
+  popupWithDelete.setDeleteHandler(()=> {
+    popupWithDelete.renderLoading(true);
+    api.deleteCard(cardId)
+      .then(() => {
+        cardElement.remove();
+        popupWithDelete.close();
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        popupWithDelete.renderLoading(false);
+      })
+  });
   popupWithDelete.open();
-}
-function handleDeleteCard(cardElement, cardId) {
-  popupWithDelete.renderLoading(true);
-  api.deleteCard(cardId)
-    .then(() => {
-      cardElement.remove();
-      popupWithDelete.close();
-    })
-    .catch(err => console.log(err))
-    .finally(() => {
-      popupWithDelete.renderLoading(false);
-    })
 }
 
 //постановка/снятие лайка
-function handleLikeClick(cardId, likeCounter, likeButton, thisCard) {
+function handleLikeClick(cardId, thisCard) {
   if (thisCard.isLiked()) {
     api.unlikeCard(cardId)
       .then(res => {
-        likeCounter.textContent = res.likes.length;
-        likeButton.classList.remove('element__like-button_active');
+        thisCard.removeLike(res);
       })
       .catch(err => console.log(err));
   } else {
     api.likeCard(cardId)
       .then(res => {
-        likeCounter.textContent = res.likes.length;
-        likeButton.classList.add('element__like-button_active');
+        thisCard.addLike(res);
       })
       .catch(err => console.log(err));
   }
@@ -117,6 +116,7 @@ const popupUpdateAvatar = new PopupWithForm(
       .then(res => {
         userInfo.setUserInfo(res);
         popupUpdateAvatar.close();
+        formUpdateAvatar.reset();
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -138,6 +138,7 @@ const popupProfileForm = new PopupWithForm(
       .then(res => {
         userInfo.setUserInfo(res);
         popupProfileForm.close();
+        formProfile.reset();
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -190,7 +191,7 @@ let userId;
 api.getProfileInfo()
   .then(res => {
     userInfo.setUserInfo(res);
-    userId = userInfo.userId(res);
+    userId = res._id
   })
   .then(() => {
     api.getInitialCards()

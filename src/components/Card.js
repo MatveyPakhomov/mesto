@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, template, userId, { handleCardClick, handleDeleteClick, handleDeleteCard, handleLikeClick }) {
+  constructor(data, template, userId, { handleCardClick, handleDeleteClick, handleLikeClick }) {
     this._name = data.name;
     this._link = data.link;
     this._likeCounter = data.likes;
@@ -9,7 +9,6 @@ export default class Card {
     this._ownerId = data.owner._id
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._handleDeleteCard = handleDeleteCard;
     this._handleLikeClick = handleLikeClick;
     this._likesId = data.likes;
     this._popupDelete = document.querySelector('.popup_type_delete');
@@ -33,17 +32,21 @@ export default class Card {
   }
 
   _openDeletePopup = () => {
-    this._handleDeleteClick();
-    this._popupDelete.addEventListener('submit', this._deleteCard);
-  }
-
-  _deleteCard = () => {
-    this._handleDeleteCard(this._card, this._cardId);
-    this._popupDelete.removeEventListener('submit', this._deleteCard);
+    this._handleDeleteClick(this._card, this._cardId);
   }
 
   _like = () => {
-    this._handleLikeClick(this._cardId, this._cardLikeCounter, this._cardLikeBtn, this);
+    this._handleLikeClick(this._cardId, this);
+  }
+
+  addLike(data) {
+    this._cardLikeCounter.textContent = data.likes.length;
+    this._cardLikeBtn.classList.add('element__like-button_active');
+  }
+
+  removeLike(data) {
+    this._cardLikeCounter.textContent = data.likes.length;
+    this._cardLikeBtn.classList.remove('element__like-button_active');
   }
 
   _setLikeCounter() {
